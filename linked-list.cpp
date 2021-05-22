@@ -69,5 +69,11 @@ void busca_dados(Dados *dados, char *chave) {
 			achou++;
 		}
 	}
+	if (achou == 0)
+		fprintf(stdout, "\n Nenhum resultado encontrado. ");
+	else
+		fprintf(stdout, "\n Foram enontrados %d registros", achou);
+		
+	sleep(1);
 }
 
