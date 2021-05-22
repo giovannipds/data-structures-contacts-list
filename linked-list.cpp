@@ -92,3 +92,13 @@ void *deleta_dados (Dados *dados) {
 	return novo;
 }
 
+int checa_vazio(Dados *dados) {
+	
+	if (dados == NULL) {
+		fprintf(stdout, "\n Lista vazia! ");
+		sleep(1);
+		return 1;
+	} else
+		return 0;
+}
+
