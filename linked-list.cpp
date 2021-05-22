@@ -77,3 +77,18 @@ void busca_dados(Dados *dados, char *chave) {
 	sleep(1);
 }
 
+void *deleta_dados (Dados *dados) {
+	
+	Dados *novo;
+	
+	novo = dados->proximo;
+	
+	free(dados->nome);
+	free(dados);
+	
+	fprintf(stdout, "\n O ultimo registro inserido foi deletado com sucesso.");
+	sleep(1);
+	
+	return novo;
+}
+
