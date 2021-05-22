@@ -16,3 +16,5 @@ void exibe(void);
 void busca(void);
 void deleta(void);
 
+Dados *principal = NULL;
+
