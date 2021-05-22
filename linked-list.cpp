@@ -134,3 +134,9 @@ void busca(void) {
 	}
 }
 
+void deleta(void) {
+	
+	if  (!checa_vazio(principal))
+		principal = deleta_dados(principal);
+}
+
