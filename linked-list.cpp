@@ -11,3 +11,8 @@ void busca_dados(Dados *dados, char *chave);
 Dados *delete_dados(Dados *dados);
 int checa_vazio(dados *dados);
 
+void insere(void);
+void exibe(void);
+void busca(void);
+void deleta(void);
+
