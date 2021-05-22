@@ -140,3 +140,19 @@ void deleta(void) {
 		principal = deleta_dados(principal);
 }
 
+int main(void) {
+	char opcao;
+	do {
+		system("CLS"); /* Nao lembro de nada! ?? */
+		fprintf(stdout, "\n Cadastro de Pessoas ");
+		fprintf(stdout, "\nEscolha uma opcao: ");
+		fprintf(stdout, "\n 1 - Insere Dados");
+		fprintf(stdout, "\n 2 - Exibe Dados");
+		fprintf(stdout, "\n 3 - Busca Dados");
+		fprintf(stdout, "\n 4 - Deleta Dados");
+		fprintf(stdout, "\n 5 - Sair \n");
+		
+		scanf("%c", &opcao);
+	}
+}
+
