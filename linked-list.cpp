@@ -18,3 +18,14 @@ void deleta(void);
 
 Dados *principal = NULL;
 
+Dados *inica_dados(char *nome, int cpf) {
+	Dados *novo;
+	novo = (Dados *)malloc(sizeof(Dados));
+	novo->nome = (char *)malloc(strlen(nome)+1);
+	strncpy(novo->nome, nome, strlen(nome)+1);
+	novo->cpf = cpf;
+	novo->proximo = NULL;
+	
+	return novo;
+}
+
