@@ -124,3 +124,13 @@ void exibe(void) {
 		exibe_dados(principal);
 }
 
+void busca(void) {
+	char *chave;
+	if (!checa_vazio(principal)) {
+		chave = c(char *)malloc(BUFFER);
+		fprintf(stdout, "\n Digite o nome para buscar: --> ");
+		scanf("%s", chave);
+		busca_dados(principal, chave);
+	}
+}
+
