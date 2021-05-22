@@ -102,3 +102,19 @@ int checa_vazio(Dados *dados) {
 		return 0;
 }
 
+void insere(void) {
+	char *nome;
+	int cpf;
+	nome = (char *)malloc(BUFFER);
+	fprintf(stdout, "\n Digite o Nome: ----> ");
+	scanf("%s", nome);
+	fprintf(stdout, "\\n");
+	fprintf(stdout, "\n Digite a cpf: ----> ");
+	scanf("%d", &cpf);
+	fprintf(stdout, "\\n");
+	
+	if (principal == NULL)
+		principal = inica_dados(nome, cpf);
+	else
+		principal = insere_dados(principal, nome, cpf);
+}
