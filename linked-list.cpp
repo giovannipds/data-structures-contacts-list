@@ -29,3 +29,15 @@ Dados *inica_dados(char *nome, int cpf) {
 	return novo;
 }
 
+Dados *insere_dados(Dados *dados, char*nome, int cpf) {
+	
+	Dados *novo;
+	
+	novo = (Dados *)malloc(sizeof(Dados));
+	novo->nome = (char *)malloc(strlen(nome)+1);
+	strncpy(novo->nome, nome, strlen(nome)+1);
+	novo->cpf = cpf;
+	novo->proxmo = dados;
+	
+	return novo;
+}
