@@ -118,3 +118,9 @@ void insere(void) {
 	else
 		principal = insere_dados(principal, nome, cpf);
 }
+
+void exibe(void) {
+	if (!checa_vazio(principal))
+		exibe_dados(principal);
+}
+
