@@ -57,3 +57,17 @@ void exibe_dados(Dados *dados) {
 	getchar();
 }
 
+void busca_dados(Dados *dados, char *chave) {
+	int achou = 0;
+	fprintf(stdout, "Cadastro:\\n\\n");
+	for (; dados != NULL; dados = dados->proximo) {
+		if (strcmp(chave, dados->nome) == 0) {
+			fprintf(stdout, "\n------------------------\n");
+			fprintf(stdout, "\n Nome: %s ", dados->nome);
+			fprintf(stdout, "\n cpf: %d \n", dados->cpf);
+			fprintf(stdout, "\n------------------------\n");
+			achou++;
+		}
+	}
+}
+
