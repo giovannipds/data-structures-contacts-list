@@ -41,3 +41,19 @@ Dados *insere_dados(Dados *dados, char*nome, int cpf) {
 	
 	return novo;
 }
+
+void exibe_dados(Dados *dados) {
+	
+	fprintf(stdout, "\n Cadastro: \n");
+	
+	fprintf(stdout, "------------------------\n");
+	
+	for (; dados != NULL; dados = dados->proximo) {
+		fprintf(stdout, "\n Nome: %s ", dados->nome);
+		fprintf(stdout, "\n cpf: %d ", dados->cpf);
+		fprintf(stdout, "\n------------------------\n");
+	}
+	
+	getchar();
+}
+
