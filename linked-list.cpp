@@ -44,7 +44,6 @@ int main(void) {
 			case '1':
 				insere();
 			case '2':
-				break;
 				exibe();
 				break;
 			case '3':
@@ -56,7 +55,8 @@ int main(void) {
 			case '5':
 				break;
 			default:
-				fprintf(stdout, "\n Opção inválida, tente novamente");
+				fprintf(stdout, "Opção inválida, tente novamente");
+				getchar();
 				break;
 		}
 	} while (opcao != '5');
@@ -83,11 +83,11 @@ Dados *insere_dados(Dados *dados, char*nome, int cpf) {
 }
 
 void exibe_dados(Dados *dados) {
-	fprintf(stdout, "\n Cadastro: \n");
+	fprintf(stdout, "\n Cadastro: \n\n");
 	fprintf(stdout, "------------------------\n");
 	for (; dados != NULL; dados = dados->proximo) {
 		fprintf(stdout, "\n Nome: %s ", dados->nome);
-		fprintf(stdout, "\n cpf: %d ", dados->cpf);
+		fprintf(stdout, "\n CFP: %d \n", dados->cpf);
 		fprintf(stdout, "\n------------------------\n");
 	}
 	getchar();
@@ -95,12 +95,12 @@ void exibe_dados(Dados *dados) {
 
 void busca_dados(Dados *dados, char *chave) {
 	int achou = 0;
-	fprintf(stdout, "Cadastro:\\n\\n");
+	fprintf(stdout, " Cadastro:\n");
 	for (; dados != NULL; dados = dados->proximo) {
 		if (strcmp(chave, dados->nome) == 0) {
 			fprintf(stdout, "\n------------------------\n");
 			fprintf(stdout, "\n Nome: %s ", dados->nome);
-			fprintf(stdout, "\n cpf: %d \n", dados->cpf);
+			fprintf(stdout, "\n CPF: %d \n", dados->cpf);
 			fprintf(stdout, "\n------------------------\n");
 			achou++;
 		}
@@ -108,8 +108,9 @@ void busca_dados(Dados *dados, char *chave) {
 	if (achou == 0)
 		fprintf(stdout, "\n Nenhum resultado encontrado. ");
 	else
-		fprintf(stdout, "\n Foram enontrados %d registros", achou);	
-	sleep(1);
+		fprintf(stdout, "\n Foram encontrados %d registros", achou);	
+//	sleep(1);
+	getchar();
 }
 
 Dados *deleta_dados (Dados *dados) {
@@ -117,8 +118,9 @@ Dados *deleta_dados (Dados *dados) {
 	novo = dados->proximo;
 	free(dados->nome);
 	free(dados);
-	fprintf(stdout, "\n O ultimo registro inserido foi deletado com sucesso.");
-	sleep(1);
+	fprintf(stdout, "\n O último registro inserido foi deletado com sucesso.");
+//	sleep(1);
+	getchar();
 	return novo;
 }
 
@@ -137,9 +139,11 @@ void insere(void) {
 	nome = (char *)malloc(BUFFER);
 	fprintf(stdout, "\n Digite o Nome: ----> ");
 	scanf("%s", nome);
+	fflush(stdin);
 //	fprintf(stdout, "\n");
 	fprintf(stdout, "\n Digite a cpf: ----> ");
 	scanf("%d", &cpf);
+	fflush(stdin);
 	fprintf(stdout, "\n");
 	if (principal == NULL)
 		principal = inicia_dados(nome, cpf);
@@ -158,6 +162,7 @@ void busca(void) {
 		chave = (char *)malloc(BUFFER);
 		fprintf(stdout, "\n Digite o nome para buscar: --> ");
 		scanf("%s", chave);
+		fflush(stdin);
 		busca_dados(principal, chave);
 	}
 }
