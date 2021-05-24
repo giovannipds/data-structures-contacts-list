@@ -1,3 +1,10 @@
+#include <stdio.h> /* scanf, etc. */
+#include <stdlib.h> /* malloc, free, etc. */
+#include <string.h> /* strlen, etc. */
+#include <unistd.h>
+#include <conio.h>
+//#include <windows.h>
+
 typedef struct lista {
 	char *nome;
 	int cpf;
@@ -9,7 +16,7 @@ Dados *insere_dados(Dados *dados, char *nome, int cpf);
 void exibe_dados(Dados *dados);
 void busca_dados(Dados *dados, char *chave);
 Dados *delete_dados(Dados *dados);
-int checa_vazio(dados *dados);
+int checa_vazio(Dados *dados);
 
 void insere(void);
 void exibe(void);
@@ -18,7 +25,7 @@ void deleta(void);
 
 Dados *principal = NULL;
 
-Dados *inica_dados(char *nome, int cpf) {
+Dados *inicia_dados(char *nome, int cpf) {
 	Dados *novo;
 	novo = (Dados *)malloc(sizeof(Dados));
 	novo->nome = (char *)malloc(strlen(nome)+1);
@@ -37,7 +44,7 @@ Dados *insere_dados(Dados *dados, char*nome, int cpf) {
 	novo->nome = (char *)malloc(strlen(nome)+1);
 	strncpy(novo->nome, nome, strlen(nome)+1);
 	novo->cpf = cpf;
-	novo->proxmo = dados;
+	novo->proximo = dados;
 	
 	return novo;
 }
@@ -105,7 +112,8 @@ int checa_vazio(Dados *dados) {
 void insere(void) {
 	char *nome;
 	int cpf;
-	nome = (char *)malloc(BUFFER);
+//	nome = (char *)malloc(BUFFER);
+	nome = (char *)malloc(sizeof(char));
 	fprintf(stdout, "\n Digite o Nome: ----> ");
 	scanf("%s", nome);
 	fprintf(stdout, "\\n");
@@ -114,7 +122,7 @@ void insere(void) {
 	fprintf(stdout, "\\n");
 	
 	if (principal == NULL)
-		principal = inica_dados(nome, cpf);
+		principal = inicia_dados(nome, cpf);
 	else
 		principal = insere_dados(principal, nome, cpf);
 }
@@ -127,7 +135,8 @@ void exibe(void) {
 void busca(void) {
 	char *chave;
 	if (!checa_vazio(principal)) {
-		chave = c(char *)malloc(BUFFER);
+//		chave = (char *)malloc(BUFFER);
+		chave = (char *)malloc(sizeof(char));
 		fprintf(stdout, "\n Digite o nome para buscar: --> ");
 		scanf("%s", chave);
 		busca_dados(principal, chave);
@@ -136,8 +145,8 @@ void busca(void) {
 
 void deleta(void) {
 	
-	if  (!checa_vazio(principal))
-		principal = deleta_dados(principal);
+//	if (!checa_vazio(principal))
+//		principal = deleta_dados(principal);
 }
 
 int main(void) {
@@ -153,6 +162,6 @@ int main(void) {
 		fprintf(stdout, "\n 5 - Sair \n");
 		
 		scanf("%c", &opcao);
-	}
+	} while (opcao != '5');
 }
 
