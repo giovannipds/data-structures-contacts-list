@@ -3,8 +3,8 @@
 #include <string.h> /* strlen, etc. */
 #include <unistd.h>
 #include <conio.h>
-//#include <windows.h>
 #define BUFFER 64
+#include <windows.h>
 
 typedef struct lista {
 	char *nome;
@@ -27,17 +27,38 @@ void deleta(void);
 Dados *principal = NULL;
 
 int main(void) {
+	SetConsoleOutputCP(1252);
 	char opcao;
 	do {
 		system("CLS"); /* Nao lembro de nada! ?? */
 		fprintf(stdout, "\n Cadastro de Pessoas ");
-		fprintf(stdout, "\nEscolha uma opcao: ");
+		fprintf(stdout, "\n Escolha uma opcao: ");
 		fprintf(stdout, "\n 1 - Insere Dados");
 		fprintf(stdout, "\n 2 - Exibe Dados");
 		fprintf(stdout, "\n 3 - Busca Dados");
 		fprintf(stdout, "\n 4 - Deleta Dados");
 		fprintf(stdout, "\n 5 - Sair \n");
 		scanf("%c", &opcao);
+		fflush(stdin);
+		switch (opcao) {
+			case '1':
+				insere();
+			case '2':
+				break;
+				exibe();
+				break;
+			case '3':
+				busca();
+				break;
+			case '4':
+				deleta();
+				break;
+			case '5':
+				break;
+			default:
+				fprintf(stdout, "\n Opção inválida, tente novamente");
+				break;
+		}
 	} while (opcao != '5');
 }
 
@@ -116,10 +137,10 @@ void insere(void) {
 	nome = (char *)malloc(BUFFER);
 	fprintf(stdout, "\n Digite o Nome: ----> ");
 	scanf("%s", nome);
-	fprintf(stdout, "\\n");
+//	fprintf(stdout, "\n");
 	fprintf(stdout, "\n Digite a cpf: ----> ");
 	scanf("%d", &cpf);
-	fprintf(stdout, "\\n");
+	fprintf(stdout, "\n");
 	if (principal == NULL)
 		principal = inicia_dados(nome, cpf);
 	else
