@@ -8,12 +8,15 @@
 
 typedef struct lista {
 	char *nome;
-	int cpf;
+	int rg;
+	char *cpf;
+	char *telefone;
+	char *email;
 	struct lista *proximo;
 } Dados;
 
-Dados *inicia_dados(char *nome, int cpf);
-Dados *insere_dados(Dados *dados, char *nome, int cpf);
+Dados *inicia_dados(char *nome, int rg, char *cpf, char *telefone, char *email);
+Dados *insere_dados(Dados *dados, char *nome, int rg, char *cpf, char *telefone, char *email);
 void exibe_dados(Dados *dados);
 void busca_dados(Dados *dados, char *chave);
 Dados *delete_dados(Dados *dados);
@@ -62,32 +65,61 @@ int main(void) {
 	} while (opcao != '5');
 }
 
-Dados *inicia_dados(char *nome, int cpf) {
+Dados *inicia_dados(char *nome, int rg, char *cpf, char *telefone, char *email) {
 	Dados *novo;
 	novo = (Dados *)malloc(sizeof(Dados));
+	
 	novo->nome = (char *)malloc(strlen(nome)+1);
 	strncpy(novo->nome, nome, strlen(nome)+1);
-	novo->cpf = cpf;
+	
+	novo->rg = rg;
+	
+	novo->cpf = (char *)malloc(strlen(cpf)+1);
+	strncpy(novo->cpf, cpf, strlen(cpf)+1);
+	
+	novo->telefone = (char *)malloc(strlen(telefone)+1);
+	strncpy(novo->telefone, telefone, strlen(telefone)+1);
+	
+	novo->email = (char *)malloc(strlen(email)+1);
+	strncpy(novo->email, email, strlen(email)+1);
+	
 	novo->proximo = NULL;
+	
 	return novo;
 }
 
-Dados *insere_dados(Dados *dados, char*nome, int cpf) {
+Dados *insere_dados(Dados *dados, char *nome, int rg, char *cpf, char *telefone, char *email) {
 	Dados *novo;
 	novo = (Dados *)malloc(sizeof(Dados));
+	
 	novo->nome = (char *)malloc(strlen(nome)+1);
 	strncpy(novo->nome, nome, strlen(nome)+1);
-	novo->cpf = cpf;
+	
+	novo->rg = rg;
+	
+	novo->cpf = (char *)malloc(strlen(cpf)+1);
+	strncpy(novo->cpf, cpf, strlen(cpf)+1);
+	
+	novo->telefone = (char *)malloc(strlen(telefone)+1);
+	strncpy(novo->telefone, telefone, strlen(telefone)+1);
+	
+	novo->email = (char *)malloc(strlen(email)+1);
+	strncpy(novo->email, email, strlen(email)+1);
+	
 	novo->proximo = dados;
+	
 	return novo;
 }
 
 void exibe_dados(Dados *dados) {
-	fprintf(stdout, "\n Cadastro: \n\n");
-	fprintf(stdout, "------------------------\n");
+	fprintf(stdout, "\n Cadastro: \n");
+	fprintf(stdout, "------------------------");
 	for (; dados != NULL; dados = dados->proximo) {
 		fprintf(stdout, "\n Nome: %s ", dados->nome);
-		fprintf(stdout, "\n CFP: %d \n", dados->cpf);
+		fprintf(stdout, "\n RG: %d ", dados->rg);
+		fprintf(stdout, "\n CPF: %s ", dados->cpf);
+		fprintf(stdout, "\n Telefone: %s ", dados->telefone);
+		fprintf(stdout, "\n E-mail: %s ", dados->email);
 		fprintf(stdout, "\n------------------------\n");
 	}
 	getchar();
@@ -95,12 +127,15 @@ void exibe_dados(Dados *dados) {
 
 void busca_dados(Dados *dados, char *chave) {
 	int achou = 0;
-	fprintf(stdout, " Cadastro:\n");
+	fprintf(stdout, "\n Cadastro:\n");
 	for (; dados != NULL; dados = dados->proximo) {
 		if (strcmp(chave, dados->nome) == 0) {
-			fprintf(stdout, "\n------------------------\n");
+			fprintf(stdout, "\n------------------------");
 			fprintf(stdout, "\n Nome: %s ", dados->nome);
-			fprintf(stdout, "\n CPF: %d \n", dados->cpf);
+			fprintf(stdout, "\n RG: %d ", dados->rg);
+			fprintf(stdout, "\n CPF: %s ", dados->cpf);
+			fprintf(stdout, "\n Telefone: %s ", dados->telefone);
+			fprintf(stdout, "\n E-mail: %s ", dados->email);
 			fprintf(stdout, "\n------------------------\n");
 			achou++;
 		}
@@ -108,7 +143,7 @@ void busca_dados(Dados *dados, char *chave) {
 	if (achou == 0)
 		fprintf(stdout, "\n Nenhum resultado encontrado. ");
 	else
-		fprintf(stdout, "\n Foram encontrados %d registros", achou);	
+		fprintf(stdout, "\n Foram encontrados %d registro(s)", achou);	
 //	sleep(1);
 	getchar();
 }
@@ -134,21 +169,39 @@ int checa_vazio(Dados *dados) {
 }
 
 void insere(void) {
-	char *nome;
-	int cpf;
+	char *nome, *cpf, *telefone, *email;
+	int rg;
+	
 	nome = (char *)malloc(BUFFER);
 	fprintf(stdout, "\n Digite o Nome: ----> ");
 	scanf("%s", nome);
 	fflush(stdin);
-//	fprintf(stdout, "\n");
-	fprintf(stdout, "\n Digite a cpf: ----> ");
-	scanf("%d", &cpf);
+	
+	fprintf(stdout, " Digite o RG: ----> ");
+	scanf("%d", &rg);
 	fflush(stdin);
-	fprintf(stdout, "\n");
+	
+	cpf = (char *)malloc(BUFFER);
+	fprintf(stdout, " Digite o CPF: ----> ");
+	scanf("%s", cpf);
+	fflush(stdin);
+	
+	telefone = (char *)malloc(BUFFER);
+	fprintf(stdout, " Digite o Telefone: ----> ");
+	scanf("%s", telefone);
+	fflush(stdin);
+	
+	email = (char *)malloc(BUFFER);
+	fprintf(stdout, " Digite o E-mail: ----> ");
+	scanf("%s", email);
+	fflush(stdin);
+	
+//	fprintf(stdout, "\n");
+	
 	if (principal == NULL)
-		principal = inicia_dados(nome, cpf);
+		principal = inicia_dados(nome, rg, cpf, telefone, email);
 	else
-		principal = insere_dados(principal, nome, cpf);
+		principal = insere_dados(principal, nome, rg, cpf, telefone, email);
 }
 
 void exibe(void) {
