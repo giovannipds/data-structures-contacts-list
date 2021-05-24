@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <conio.h>
 //#include <windows.h>
+#define BUFFER 64
 
 typedef struct lista {
 	char *nome;
@@ -25,6 +26,21 @@ void deleta(void);
 
 Dados *principal = NULL;
 
+int main(void) {
+	char opcao;
+	do {
+		system("CLS"); /* Nao lembro de nada! ?? */
+		fprintf(stdout, "\n Cadastro de Pessoas ");
+		fprintf(stdout, "\nEscolha uma opcao: ");
+		fprintf(stdout, "\n 1 - Insere Dados");
+		fprintf(stdout, "\n 2 - Exibe Dados");
+		fprintf(stdout, "\n 3 - Busca Dados");
+		fprintf(stdout, "\n 4 - Deleta Dados");
+		fprintf(stdout, "\n 5 - Sair \n");
+		scanf("%c", &opcao);
+	} while (opcao != '5');
+}
+
 Dados *inicia_dados(char *nome, int cpf) {
 	Dados *novo;
 	novo = (Dados *)malloc(sizeof(Dados));
@@ -32,35 +48,27 @@ Dados *inicia_dados(char *nome, int cpf) {
 	strncpy(novo->nome, nome, strlen(nome)+1);
 	novo->cpf = cpf;
 	novo->proximo = NULL;
-	
 	return novo;
 }
 
 Dados *insere_dados(Dados *dados, char*nome, int cpf) {
-	
 	Dados *novo;
-	
 	novo = (Dados *)malloc(sizeof(Dados));
 	novo->nome = (char *)malloc(strlen(nome)+1);
 	strncpy(novo->nome, nome, strlen(nome)+1);
 	novo->cpf = cpf;
 	novo->proximo = dados;
-	
 	return novo;
 }
 
 void exibe_dados(Dados *dados) {
-	
 	fprintf(stdout, "\n Cadastro: \n");
-	
 	fprintf(stdout, "------------------------\n");
-	
 	for (; dados != NULL; dados = dados->proximo) {
 		fprintf(stdout, "\n Nome: %s ", dados->nome);
 		fprintf(stdout, "\n cpf: %d ", dados->cpf);
 		fprintf(stdout, "\n------------------------\n");
 	}
-	
 	getchar();
 }
 
@@ -79,28 +87,21 @@ void busca_dados(Dados *dados, char *chave) {
 	if (achou == 0)
 		fprintf(stdout, "\n Nenhum resultado encontrado. ");
 	else
-		fprintf(stdout, "\n Foram enontrados %d registros", achou);
-		
+		fprintf(stdout, "\n Foram enontrados %d registros", achou);	
 	sleep(1);
 }
 
-void *deleta_dados (Dados *dados) {
-	
+Dados *deleta_dados (Dados *dados) {
 	Dados *novo;
-	
 	novo = dados->proximo;
-	
 	free(dados->nome);
 	free(dados);
-	
 	fprintf(stdout, "\n O ultimo registro inserido foi deletado com sucesso.");
 	sleep(1);
-	
 	return novo;
 }
 
 int checa_vazio(Dados *dados) {
-	
 	if (dados == NULL) {
 		fprintf(stdout, "\n Lista vazia! ");
 		sleep(1);
@@ -112,15 +113,13 @@ int checa_vazio(Dados *dados) {
 void insere(void) {
 	char *nome;
 	int cpf;
-//	nome = (char *)malloc(BUFFER);
-	nome = (char *)malloc(sizeof(char));
+	nome = (char *)malloc(BUFFER);
 	fprintf(stdout, "\n Digite o Nome: ----> ");
 	scanf("%s", nome);
 	fprintf(stdout, "\\n");
 	fprintf(stdout, "\n Digite a cpf: ----> ");
 	scanf("%d", &cpf);
 	fprintf(stdout, "\\n");
-	
 	if (principal == NULL)
 		principal = inicia_dados(nome, cpf);
 	else
@@ -135,8 +134,7 @@ void exibe(void) {
 void busca(void) {
 	char *chave;
 	if (!checa_vazio(principal)) {
-//		chave = (char *)malloc(BUFFER);
-		chave = (char *)malloc(sizeof(char));
+		chave = (char *)malloc(BUFFER);
 		fprintf(stdout, "\n Digite o nome para buscar: --> ");
 		scanf("%s", chave);
 		busca_dados(principal, chave);
@@ -144,24 +142,7 @@ void busca(void) {
 }
 
 void deleta(void) {
-	
-//	if (!checa_vazio(principal))
-//		principal = deleta_dados(principal);
-}
-
-int main(void) {
-	char opcao;
-	do {
-		system("CLS"); /* Nao lembro de nada! ?? */
-		fprintf(stdout, "\n Cadastro de Pessoas ");
-		fprintf(stdout, "\nEscolha uma opcao: ");
-		fprintf(stdout, "\n 1 - Insere Dados");
-		fprintf(stdout, "\n 2 - Exibe Dados");
-		fprintf(stdout, "\n 3 - Busca Dados");
-		fprintf(stdout, "\n 4 - Deleta Dados");
-		fprintf(stdout, "\n 5 - Sair \n");
-		
-		scanf("%c", &opcao);
-	} while (opcao != '5');
+	if (!checa_vazio(principal))
+		principal = deleta_dados(principal);
 }
 
